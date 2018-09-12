@@ -7,11 +7,11 @@ public class DumbCryptographyService extends FileSystemConfiguredCryptographySer
 
     @Override
     protected String encryptText(String source) {
-        return "?" + source;
+        return cryptographyConfiguration.getDumbEncryption() + source;
     }
 
     @Override
     protected String decryptText(String source) {
-        return source.substring(1);
+        return source.substring(cryptographyConfiguration.getDumbEncryption().length());
     }
 }

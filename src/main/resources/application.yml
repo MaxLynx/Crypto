@@ -4,3 +4,5 @@ app:
     source: source.txt
     encrypted: encrypted.txt
     decrypted: decrypted.txt
+  cryptography:
+    dumb-encryption: 0

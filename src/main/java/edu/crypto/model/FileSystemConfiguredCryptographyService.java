@@ -1,5 +1,7 @@
 package edu.crypto.model;
 
+import edu.crypto.model.config.CryptographyConfiguration;
+import edu.crypto.model.config.FilenameConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class FileSystemConfiguredCryptographyService implements CryptographyService {
@@ -9,6 +11,9 @@ public abstract class FileSystemConfiguredCryptographyService implements Cryptog
 
     @Autowired
     FilenameConfiguration filenameConfiguration;
+
+    @Autowired
+    CryptographyConfiguration cryptographyConfiguration;
 
     public void encrypt(){
         fileOperatingService.getStringAsFile(
