@@ -4,13 +4,7 @@ import java.nio.file.Path;
 
 public interface CryptographyService {
 
-    /**
-     * Encrypts the given file
-     */
-    Path encrypt(Path P);
+    void encrypt();
 
-    /**
-     * Decrypts the given file
-     */
-    Path decrypt(Path C);
+    void decrypt();
 }
