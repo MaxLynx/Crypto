@@ -2,7 +2,7 @@ package edu.crypto.model;
 
 import java.nio.file.Path;
 
-public interface CryptographyAlgorithm {
+public interface CryptographyService {
 
     /**
      * Encrypts the given file

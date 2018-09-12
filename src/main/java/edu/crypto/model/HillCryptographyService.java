@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Path;
 
 @Component
-public class HillCryptographyAlgorithm implements CryptographyAlgorithm {
+public class HillCryptographyService implements CryptographyService {
 
     public Path encrypt(Path P){
         return P;

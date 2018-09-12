@@ -1,6 +1,6 @@
 package edu.crypto.controller;
 
-import edu.crypto.model.CryptographyAlgorithm;
+import edu.crypto.model.CryptographyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.nio.file.Path;
 public class CryptographyController {
 
     @Autowired
-    CryptographyAlgorithm cryptographyAlgorithm;
+    CryptographyService cryptographyAlgorithm;
 
     public Path encrypt(Path P){
         return cryptographyAlgorithm.encrypt(P);
