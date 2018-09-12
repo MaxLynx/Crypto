@@ -1,0 +1,6 @@
+app:
+  filename:
+    base: src\main\resources\
+    source: source.txt
+    encrypted: encrypted.txt
+    decrypted: decrypted.txt
