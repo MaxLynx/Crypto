@@ -31,7 +31,7 @@ public class CryptographyControllerTest {
     public void createFile(){
         String s = "Hello World! ";
         byte data[] = s.getBytes();
-        path = Paths.get("./logfile.txt");
+        path = Paths.get("./test.txt");
 
         try (OutputStream out = new BufferedOutputStream(
                 Files.newOutputStream(path, CREATE, APPEND))) {
