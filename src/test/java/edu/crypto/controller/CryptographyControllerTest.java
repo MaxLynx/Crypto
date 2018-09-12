@@ -1,10 +1,10 @@
 package edu.crypto.controller;
 
-import edu.crypto.CryptoConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,10 +21,10 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(CryptoConfig.class)
 public class CryptographyControllerTest {
 
-    CryptographyController cryptographyController = new CryptographyController();
+    @Autowired
+    CryptographyController cryptographyController;
     Path path;
 
     @Before
