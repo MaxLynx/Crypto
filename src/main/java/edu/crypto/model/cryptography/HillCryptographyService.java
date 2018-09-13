@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 
 /**
- * Hill encryption algorithm realization. Decryption does not work right as for this version
+ * Decryption works properly only when inverted key is declared manually
  */
 @Component
 @Qualifier("Hill")
@@ -18,10 +18,13 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
                                             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
                                             'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-    /**
-     * TOREFACTOR
-     */
-    private double [][] key;
+    private double [][] key = {{3, 10, 20},
+                                {20, 9, 17},
+                                {9, 4, 17}};
+
+    private double [][] invertedKey = {{11, 22, 14},
+                                        {7, 9, 21},
+                                        {17, 0, 3}};
 
     @Override
     protected String encryptText(String source) {
@@ -31,7 +34,6 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
             data[i] = getCode(source.charAt(i));
         }
 
-        key = generateKey(dimension);
         double [] encryptedData = multiply(key, data);
 
         StringBuilder encrypted = new StringBuilder();
@@ -52,7 +54,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
             data[i] = getCode(source.charAt(i));
         }
 
-        double [] decryptedData = multiply(inverse(key), data);
+        double [] decryptedData = multiply(invertedKey, data);
 
         StringBuilder decrypted = new StringBuilder();
 
@@ -74,7 +76,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
     }
 
     /**
-     * Not-nullable det check is not available yet
+     * Not-nullable det check is not available
      */
     private double[][] generateKey(double dimension){
         Random random = new Random();
