@@ -1,4 +1,4 @@
-package edu.crypto.model;
+package edu.crypto.model.cryptography;
 
 import java.nio.file.Path;
 
