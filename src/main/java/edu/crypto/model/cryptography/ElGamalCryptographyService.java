@@ -4,21 +4,25 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@Qualifier("RSA")
-public class RSACryptographyService extends FileSystemConfiguredCryptographyService{
+@Qualifier("ElGamal")
+public class ElGamalCryptographyService extends FileSystemConfiguredCryptographyService{
 
-    private static final char[] ALPHABET = {' ', '_', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+    private static final char[] ALPHABET = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '?', '!', '#', '(', ')'};
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '?', '!', '#', '_', ' '};
 
     /**
-     * N - product of two primes (alphabet size)
-     * E - 3, 5, 17, 257 OR 65537
-     * (N, E) - public key
-     * D - secret exponent
-     * (N, D) - private key
+     * P - prime number
+     * G - number between 1 and P-1
+     * X - random private key
+     * K - random value for encryption
      */
-    private static final int N = 11 * 3;
+    private static final int P = 31;
+    private static final int G = 9;
+    private static final int X = 3;
+    private static final int Y = (int) (Math.pow(G, X) % P);
+
+    private static int A;
 
     private int alphabetNumerationStart;
 
@@ -26,21 +30,19 @@ public class RSACryptographyService extends FileSystemConfiguredCryptographyServ
 
     @Override
     protected String encryptText(String source) {
-        final int E = 3;
+        final int K = 3;
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
         textLength = source.length();
 
-        return convertIntToText(encryptConvertedText(convertTextToInt(source), E));
+        return convertIntToText(encryptConvertedText(convertTextToInt(source), K));
     }
 
     @Override
     protected String decryptText(String source) {
-        final int D = 7;
-
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
 
-        return convertIntToText(decryptConvertedText(convertTextToInt(source), D));
+        return convertIntToText(decryptConvertedText(convertTextToInt(source)));
     }
 
     private int[] convertTextToInt(String text){
@@ -59,17 +61,19 @@ public class RSACryptographyService extends FileSystemConfiguredCryptographyServ
         return text.toString();
     }
 
-    private int[] encryptConvertedText(int[] text, int E){
-        int[] encrypted = new int[textLength];
-        for(int i = 0; i < textLength; i++)
-            encrypted[i] = alphabetNumerationStart + (int) (Math.pow(text[i], E) % N);
-        return encrypted;
+    private int[] encryptConvertedText(int[] text, int K){
+        A = (int) (Math.pow(G, K) % P);
+        int[] B = new int[textLength];
+        for(int i = 0; i < textLength; i++) {
+            B[i] = alphabetNumerationStart + (int) (Math.pow(Y, K) * text[i] % P);
+        }
+        return B;
     }
 
-    private int[] decryptConvertedText(int[] text, int D){
+    private int[] decryptConvertedText(int[] text){
         int[] decrypted = new int[textLength];
         for(int i = 0; i < textLength; i++) {
-            decrypted[i] = (int) (Math.pow(text[i] - alphabetNumerationStart, D) % N);
+            decrypted[i] = (int) ((text[i] - alphabetNumerationStart) * Math.pow(A, P - 1 - X ) % P);
         }
         return decrypted;
     }

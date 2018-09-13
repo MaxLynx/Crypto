@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CryptographyApp implements CommandLineRunner {
 
     @Autowired
-    @Qualifier("RSA")
+    @Qualifier("ElGamal")
     CryptographyService cryptographyService;
 
     public static void main(String[] args) throws Exception {
