@@ -1,8 +1,10 @@
-package edu.crypto.model;
+package edu.crypto.model.cryptography;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@Qualifier("Dumb")
 public class DumbCryptographyService extends FileSystemConfiguredCryptographyService{
 
     @Override

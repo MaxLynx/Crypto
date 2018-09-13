@@ -1,3 +1,6 @@
+spring:
+  main:
+    banner-mode: "off"
 app:
   filename:
     base: src\main\resources\
@@ -6,3 +9,4 @@ app:
     decrypted: decrypted.txt
   cryptography:
     dumb-encryption: 0
+    alphabet-numeration-start: 2
