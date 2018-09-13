@@ -1,31 +1,86 @@
 package edu.crypto.model.cryptography;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("RSA")
 public class RSACryptographyService extends FileSystemConfiguredCryptographyService{
 
-    private int n = 1;
-    private int e = 17;
-    private int d = 1;
+    private static final char[] ALPHABET = {' ', '_', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+            'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '?', '!', '#', '(', ')'};
+
+    /**
+     * N - product of two primes (alphabet size)
+     * E - 3, 5, 17, 257 OR 65537
+     * (N, E) - public key
+     * D - secret exponent
+     * (N, D) - private key
+     */
+    private static final int N = 11 * 3;
+    private static final int E = 3;
+    private static final int D = 7;
+
+    private int alphabetNumerationStart;
+
+    private int textLength;
 
     @Override
     protected String encryptText(String source) {
-        int m = convertTextToInt(source);
-        int c = (int)Math.pow(m, e) % n;
-        return ""+c;
+        alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
+        textLength = source.length();
+
+        return convertIntToText(encryptConvertedText(convertTextToInt(source)));
     }
 
     @Override
     protected String decryptText(String source) {
-        int c = Integer.parseInt(source);
-        int m = (int)Math.pow(c, d) % n;
-        return convertIntToText(m);
+        alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
+
+        return convertIntToText(decryptConvertedText(convertTextToInt(source)));
     }
 
-    private int convertTextToInt(String text){
-        return 1;
+    private int[] convertTextToInt(String text){
+        int[] ints = new int[textLength];
+        for(int i = 0; i < textLength; i++) {
+            ints[i] = getCode(text.charAt(i));
+        }
+        return ints;
     }
 
-    private String convertIntToText(int code){
-        return "";
+    private String convertIntToText(int[] code){
+        StringBuilder text = new StringBuilder();
+        for(int i = 0; i < textLength; i++) {
+            text.append(getLetter(code[i]));
+        }
+        return text.toString();
     }
+
+    private int[] encryptConvertedText(int[] text){
+        int[] encrypted = new int[textLength];
+        for(int i = 0; i < textLength; i++)
+            encrypted[i] = alphabetNumerationStart + (int) (Math.pow(text[i], E) % N);
+        return encrypted;
+    }
+
+    private int[] decryptConvertedText(int[] text){
+        int[] decrypted = new int[textLength];
+        for(int i = 0; i < textLength; i++) {
+            decrypted[i] = (int) (Math.pow(text[i] - alphabetNumerationStart, D) % N);
+        }
+        return decrypted;
+    }
+
+    private int getCode(char letter){
+        for(int i = 0; i < ALPHABET.length; i++)
+            if(ALPHABET[i] == letter)
+                return alphabetNumerationStart + i;
+        return 0;
+    }
+
+    private char getLetter(int code){
+        return ALPHABET[code - alphabetNumerationStart];
+    }
+
 }
