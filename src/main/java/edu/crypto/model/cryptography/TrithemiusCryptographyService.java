@@ -21,8 +21,6 @@ public class TrithemiusCryptographyService extends FileSystemConfiguredCryptogra
     private int A = 5;
     private int B = 3;
 
-    private int A_INVERTED = 20;
-
     @Override
     protected String encryptText(String source) {
 
@@ -58,8 +56,9 @@ public class TrithemiusCryptographyService extends FileSystemConfiguredCryptogra
 
     private int[] encryptConvertedText(int[] text){
         int[] encrypted = new int[textLength];
-        for(int i = 0; i < textLength; i++)
-            encrypted[i] = alphabetNumerationStart + ((text[i] + A*i + B) % N);
+        for(int i = 0; i < textLength; i++) {
+            encrypted[i] = alphabetNumerationStart + ((text[i] + A * i + B) % N);
+        }
         return encrypted;
     }
 

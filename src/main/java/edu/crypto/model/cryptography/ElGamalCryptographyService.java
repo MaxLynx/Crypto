@@ -32,12 +32,12 @@ public class ElGamalCryptographyService extends FileSystemConfiguredCryptography
     protected String encryptText(String source) {
         final int K = 3;
 
+
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
         textLength = source.length();
 
         return convertIntToText(encryptConvertedText(convertTextToInt(source), K));
     }
-
     @Override
     protected String decryptText(String source) {
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();

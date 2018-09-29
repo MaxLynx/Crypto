@@ -1,5 +1,6 @@
 package edu.crypto.model.cryptography;
 
+import edu.crypto.model.fileoperating.ConcreteFileOperatingService;
 import edu.crypto.model.fileoperating.FilenameConfiguration;
 import edu.crypto.model.fileoperating.FileOperatingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,11 @@ public abstract class FileSystemConfiguredCryptographyService implements Cryptog
     @Autowired
     CryptographyConfiguration cryptographyConfiguration;
 
+
     public void encrypt(){
+        fileOperatingService.getStringAsFile(
+                "",
+                filenameConfiguration.getBase() + filenameConfiguration.getEncrypted());
         fileOperatingService.getStringAsFile(
                 encryptText(fileOperatingService.getFileAsString(filenameConfiguration.getBase() +
                         filenameConfiguration.getSource())),
@@ -23,6 +28,9 @@ public abstract class FileSystemConfiguredCryptographyService implements Cryptog
     }
 
     public void decrypt(){
+        fileOperatingService.getStringAsFile(
+                "",
+                filenameConfiguration.getBase() + filenameConfiguration.getDecrypted());
         fileOperatingService.getStringAsFile(
                 decryptText(fileOperatingService.getFileAsString(filenameConfiguration.getBase() +
                         filenameConfiguration.getEncrypted())),

@@ -61,8 +61,9 @@ public class RSACryptographyService extends FileSystemConfiguredCryptographyServ
 
     private int[] encryptConvertedText(int[] text, int E){
         int[] encrypted = new int[textLength];
-        for(int i = 0; i < textLength; i++)
+        for(int i = 0; i < textLength; i++) {
             encrypted[i] = alphabetNumerationStart + (int) (Math.pow(text[i], E) % N);
+        }
         return encrypted;
     }
 

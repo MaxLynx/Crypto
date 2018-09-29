@@ -38,8 +38,9 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
 
         StringBuilder encrypted = new StringBuilder();
 
-        for(int i = 0; i < dimension; i++)
+        for(int i = 0; i < dimension; i++) {
             encrypted.append(getLetter(encryptedData[i]));
+        }
 
         return encrypted.toString();
     }

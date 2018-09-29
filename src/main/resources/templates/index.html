@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Crypto</title>
+</head>
+<body>
+    <form method="post" action="/app/encryption">
+        <textarea name="message" th:text="${originalMessage}"></textarea>
+        <label>
+            <input type="radio" name="algorithm" value="Affine" th:checked="${algorithm.equals('Affine')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/Affine_cipher" target="_blank">Affine</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="RSA" th:checked="${algorithm.equals('RSA')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" target="_blank">RSA</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="El Gamal" th:checked="${algorithm.equals('El Gamal')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/ElGamal_encryption" target="_blank">El Gamal</a></span>
+        </label>
+        <input type="submit" value="Encrypt"/>
+    </form>
+    <form method="post" action="/app/decryption">
+        <textarea name="message" th:text="${encryptedMessage}"></textarea>
+        <label>
+            <input type="radio" name="algorithm" value="Affine" th:checked="${algorithm.equals('Affine')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/Affine_cipher"  target="_blank">Affine</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="RSA" th:checked="${algorithm.equals('RSA')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)"  target="_blank">RSA</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="El Gamal" th:checked="${algorithm.equals('El Gamal')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/ElGamal_encryption"  target="_blank">El Gamal</a></span>
+        </label>
+        <input type="submit" value="Decrypt"/>
+    </form>
+    <form method="get" action="/fileupload">
+        <input type="file"/>
+    </form>
+</body>
+</html>

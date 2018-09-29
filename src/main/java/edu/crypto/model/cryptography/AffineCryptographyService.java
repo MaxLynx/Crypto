@@ -58,8 +58,9 @@ public class AffineCryptographyService extends FileSystemConfiguredCryptographyS
 
     private int[] encryptConvertedText(int[] text){
         int[] encrypted = new int[textLength];
-        for(int i = 0; i < textLength; i++)
+        for(int i = 0; i < textLength; i++){
             encrypted[i] = alphabetNumerationStart + ((A * text[i] + B) % N);
+        }
         return encrypted;
     }
 
