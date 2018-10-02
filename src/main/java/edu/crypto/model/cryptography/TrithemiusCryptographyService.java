@@ -22,7 +22,7 @@ public class TrithemiusCryptographyService extends FileSystemConfiguredCryptogra
     private int B = 3;
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
         textLength = source.length();
@@ -31,7 +31,7 @@ public class TrithemiusCryptographyService extends FileSystemConfiguredCryptogra
     }
 
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
 

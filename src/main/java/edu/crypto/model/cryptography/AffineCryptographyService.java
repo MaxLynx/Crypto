@@ -24,7 +24,7 @@ public class AffineCryptographyService extends FileSystemConfiguredCryptographyS
     private int A_INVERTED = 20;
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
         textLength = source.length();
@@ -33,7 +33,7 @@ public class AffineCryptographyService extends FileSystemConfiguredCryptographyS
     }
 
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
 

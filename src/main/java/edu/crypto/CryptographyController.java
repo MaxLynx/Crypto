@@ -67,7 +67,7 @@ public class CryptographyController {
     public String decrypt(@RequestParam String message, @RequestParam String algorithm,
                                 Map<String, Object> model){
         fileOperatingService.getStringAsFile(message, filenameConfiguration.getBase()
-                + filenameConfiguration.getSource());
+                + filenameConfiguration.getEncrypted());
         if(algorithm.equals("Affine"))
             affineCryptographyService.decrypt();
         else

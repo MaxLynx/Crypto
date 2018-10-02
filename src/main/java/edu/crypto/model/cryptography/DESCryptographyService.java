@@ -30,7 +30,7 @@ public class DESCryptographyService extends FileSystemConfiguredCryptographyServ
     private int textLength;
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
         final int E = 3;
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
@@ -40,7 +40,7 @@ public class DESCryptographyService extends FileSystemConfiguredCryptographyServ
     }
 
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
         final int D = 7;
 
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();

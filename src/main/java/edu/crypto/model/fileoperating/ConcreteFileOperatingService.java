@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.StandardOpenOption.WRITE;
 
 @Component
 public class ConcreteFileOperatingService implements FileOperatingService{
@@ -38,7 +40,7 @@ public class ConcreteFileOperatingService implements FileOperatingService{
         byte data[] = string.getBytes();
 
         try (OutputStream out = new BufferedOutputStream(
-                Files.newOutputStream(path, CREATE))) {
+                Files.newOutputStream(path, WRITE, CREATE, TRUNCATE_EXISTING))) {
             out.write(data, 0, data.length);
         } catch (IOException x) {
             System.err.println(x);

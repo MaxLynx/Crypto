@@ -29,7 +29,7 @@ public class ElGamalCryptographyService extends FileSystemConfiguredCryptography
     private int textLength;
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
         final int K = 3;
 
 
@@ -39,7 +39,7 @@ public class ElGamalCryptographyService extends FileSystemConfiguredCryptography
         return convertIntToText(encryptConvertedText(convertTextToInt(source), K));
     }
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
         alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
 
         return convertIntToText(decryptConvertedText(convertTextToInt(source)));

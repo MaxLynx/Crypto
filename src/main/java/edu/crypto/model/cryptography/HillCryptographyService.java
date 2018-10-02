@@ -27,7 +27,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
                                         {17, 0, 3}};
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
         int dimension = source.length();
         double [] data = new double[dimension];
         for(int i = 0; i < dimension; i++){
@@ -47,7 +47,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
 
 
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
 
         int dimension = source.length();
         double [] data = new double[dimension];

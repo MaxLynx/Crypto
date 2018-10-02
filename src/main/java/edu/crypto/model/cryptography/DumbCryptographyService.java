@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 public class DumbCryptographyService extends FileSystemConfiguredCryptographyService{
 
     @Override
-    protected String encryptText(String source) {
+    public String encryptText(String source) {
         return cryptographyConfiguration.getDumbEncryption() + source;
     }
 
     @Override
-    protected String decryptText(String source) {
+    public String decryptText(String source) {
         return source.substring(cryptographyConfiguration.getDumbEncryption().length());
     }
 }
