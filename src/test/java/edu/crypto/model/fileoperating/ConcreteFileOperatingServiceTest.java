@@ -25,14 +25,14 @@ public class ConcreteFileOperatingServiceTest {
     public void getFileAsStringTest() throws Exception {
 
         assertEquals("test",
-                concreteFileOperatingService.getFileAsString("src/test/resources/test.txt"));
+                concreteFileOperatingService.getFileAsString("src/test/resources/testRead.txt"));
     }
 
     @Test
     public void getStringAsFileTest() throws Exception {
-        concreteFileOperatingService.getStringAsFile("new_test", "src/test/resources/test.txt");
+        concreteFileOperatingService.getStringAsFile("new_test", "src/test/resources/testWrite.txt");
         assertEquals("new_test",
-                concreteFileOperatingService.getFileAsString("src/test/resources/test.txt"));
+                concreteFileOperatingService.getFileAsString("src/test/resources/testWrite.txt"));
     }
 
 }

@@ -33,6 +33,9 @@ public class CryptographyController {
     @Qualifier("Hill")
     private CryptographyService hillCryptographyService;
     @Autowired
+    @Qualifier("DES")
+    private CryptographyService desCryptographyService;
+    @Autowired
     private FileOperatingService fileOperatingService;
     @Autowired
     private FilenameConfiguration filenameConfiguration;
@@ -62,6 +65,9 @@ public class CryptographyController {
         else
         if(algorithm.equals("Hill"))
             hillCryptographyService.encrypt();
+        else
+        if(algorithm.equals("DES"))
+            desCryptographyService.encrypt();
         model.put("originalMessage", message);
         model.put("encryptedMessage", fileOperatingService.getFileAsString(filenameConfiguration.getBase()
                 + filenameConfiguration.getEncrypted()));
@@ -85,6 +91,9 @@ public class CryptographyController {
         else
         if(algorithm.equals("Hill"))
             hillCryptographyService.decrypt();
+        else
+        if(algorithm.equals("DES"))
+            desCryptographyService.decrypt();
         model.put("encryptedMessage", message);
         model.put("originalMessage", fileOperatingService.getFileAsString(filenameConfiguration.getBase()
                 + filenameConfiguration.getDecrypted()));

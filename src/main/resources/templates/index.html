@@ -26,6 +26,10 @@
             <input type="radio" name="algorithm" value="Hill" th:checked="${algorithm.equals('Hill')}"/>
             <span><a href="https://en.wikipedia.org/wiki/Hill_cipher" target="_blank">Hill</a></span>
         </label>
+        <label>
+            <input type="radio" name="algorithm" value="DES" th:checked="${algorithm.equals('DES')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/DES" target="_blank">DES</a></span>
+        </label>
         <input type="submit" value="Encrypt"/>
     </form>
     <form method="post" action="/app/decryption">
@@ -45,6 +49,10 @@
         <label>
             <input type="radio" name="algorithm" value="Hill" th:checked="${algorithm.equals('Hill')}"/>
             <span><a href="https://en.wikipedia.org/wiki/Hill_cipher" target="_blank">Hill</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="DES" th:checked="${algorithm.equals('DES')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/DES" target="_blank">DES</a></span>
         </label>
         <input type="submit" value="Decrypt"/>
     </form>
