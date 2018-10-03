@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-/**
- * Decryption works properly only when inverted key is declared manually
- */
 @Component
 @Qualifier("Hill")
 public class HillCryptographyService extends FileSystemConfiguredCryptographyService{
@@ -29,19 +26,24 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
     @Override
     public String encryptText(String source) {
         int dimension = source.length();
-        double [] data = new double[dimension];
-        for(int i = 0; i < dimension; i++){
-            data[i] = getCode(source.charAt(i));
-        }
-
-        double [] encryptedData = multiply(key, data);
+        if(dimension % 3 == 2)
+            source += "X";
+        if(dimension % 3 == 1)
+            source = "X" + source + "X";
 
         StringBuilder encrypted = new StringBuilder();
 
-        for(int i = 0; i < dimension; i++) {
-            encrypted.append(getLetter(encryptedData[i]));
-        }
+        for(int i = 0; i < dimension; i+=key[0].length) {
+            double [] data = new double[key[0].length];
+            for(int j = 0; j < key[0].length; j++){
+                data[j] = getCode(source.charAt(i + j));
+            }
+            double[] encryptedData = multiply(key, data);
 
+            for (int j = 0; j < key[0].length; j++) {
+                encrypted.append(getLetter(encryptedData[j]));
+            }
+        }
         return encrypted.toString();
     }
 
@@ -50,17 +52,20 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
     public String decryptText(String source) {
 
         int dimension = source.length();
-        double [] data = new double[dimension];
-        for(int i = 0; i < dimension; i++){
-            data[i] = getCode(source.charAt(i));
-        }
-
-        double [] decryptedData = multiply(invertedKey, data);
 
         StringBuilder decrypted = new StringBuilder();
 
-        for(int i = 0; i < decryptedData.length; i++)
-            decrypted.append(getLetter(decryptedData[i]));
+        for(int i = 0; i < dimension; i+=key[0].length) {
+            double [] data = new double[key[0].length];
+            for(int j = 0; j < key[0].length; j++){
+                data[j] = getCode(source.charAt(i + j));
+            }
+            double[] decryptedData = multiply(invertedKey, data);
+
+            for (int j = 0; j < key[0].length; j++) {
+                decrypted.append(getLetter(decryptedData[j]));
+            }
+        }
 
         return decrypted.toString();
     }

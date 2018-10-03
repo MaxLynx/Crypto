@@ -22,6 +22,10 @@
             <input type="radio" name="algorithm" value="El Gamal" th:checked="${algorithm.equals('El Gamal')}"/>
             <span><a href="https://en.wikipedia.org/wiki/ElGamal_encryption" target="_blank">El Gamal</a></span>
         </label>
+        <label>
+            <input type="radio" name="algorithm" value="Hill" th:checked="${algorithm.equals('Hill')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/Hill_cipher" target="_blank">Hill</a></span>
+        </label>
         <input type="submit" value="Encrypt"/>
     </form>
     <form method="post" action="/app/decryption">
@@ -37,6 +41,10 @@
         <label>
             <input type="radio" name="algorithm" value="El Gamal" th:checked="${algorithm.equals('El Gamal')}"/>
             <span><a href="https://en.wikipedia.org/wiki/ElGamal_encryption"  target="_blank">El Gamal</a></span>
+        </label>
+        <label>
+            <input type="radio" name="algorithm" value="Hill" th:checked="${algorithm.equals('Hill')}"/>
+            <span><a href="https://en.wikipedia.org/wiki/Hill_cipher" target="_blank">Hill</a></span>
         </label>
         <input type="submit" value="Decrypt"/>
     </form>
