@@ -13,23 +13,23 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
 
     private static final char[] ALPHABET = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                                             'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-                                            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+                                            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '?', '!'};
 
-    private double [][] key = {{3, 10, 20},
-                                {20, 9, 17},
-                                {9, 4, 17}};
+    private double [][] key = {{1, 10},
+                                {2, 21}};
 
-    private double [][] invertedKey = {{11, 22, 14},
-                                        {7, 9, 21},
-                                        {17, 0, 3}};
+    private double [][] invertedKey = {{21, 18},
+                                        {26, 1}};
+
+    private int alphabetNumerationStart;
 
     @Override
     public String encryptText(String source) {
+        alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
+
         int dimension = source.length();
-        if(dimension % 3 == 2)
+        if(dimension % 2 == 1)
             source += "X";
-        if(dimension % 3 == 1)
-            source = "X" + source + "X";
 
         StringBuilder encrypted = new StringBuilder();
 
@@ -41,7 +41,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
             double[] encryptedData = multiply(key, data);
 
             for (int j = 0; j < key[0].length; j++) {
-                encrypted.append(getLetter(encryptedData[j]));
+                encrypted.append(getLetter(encryptedData[j] + alphabetNumerationStart));
             }
         }
         return encrypted.toString();
@@ -51,6 +51,8 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
     @Override
     public String decryptText(String source) {
 
+        alphabetNumerationStart = cryptographyConfiguration.getAlphabetNumerationStart();
+
         int dimension = source.length();
 
         StringBuilder decrypted = new StringBuilder();
@@ -58,7 +60,7 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
         for(int i = 0; i < dimension; i+=key[0].length) {
             double [] data = new double[key[0].length];
             for(int j = 0; j < key[0].length; j++){
-                data[j] = getCode(source.charAt(i + j));
+                data[j] = getCode(source.charAt(i + j)) - alphabetNumerationStart;
             }
             double[] decryptedData = multiply(invertedKey, data);
 
@@ -73,12 +75,12 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
     private double getCode(char letter){
         for(int i = 0; i < ALPHABET.length; i++)
             if(ALPHABET[i] == letter)
-                return i;
+                return i + alphabetNumerationStart;
         return 0;
     }
 
     private char getLetter(double code){
-        return ALPHABET[(int)Math.round(code)];
+        return ALPHABET[(int)Math.round(code) - alphabetNumerationStart];
     }
 
     /**
@@ -110,7 +112,8 @@ public class HillCryptographyService extends FileSystemConfiguredCryptographySer
                 result[i] %= ALPHABET.length;
             }
             else{
-                result[i] = ALPHABET.length - result[i] % ALPHABET.length;
+                result[i] = ALPHABET.length
+                        - result[i] % ALPHABET.length;
             }
         }
 
